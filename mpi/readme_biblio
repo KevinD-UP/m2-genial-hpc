@@ -1,0 +1,203 @@
+biblio intro:
+www.siam.org/about/science/keyes.ppt
+
+biblio parallel:
+https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html
+
+biblio HPC / MPI:
+
+- Multicore architecture programing, 
+
+- Parallel programming for multicore and cluster systems, Rauber and Runger
+
+- "Structured Parallel Programming: Patterns for Efficient Computation"
+Michael McCool, James Reinders, Arch Robison  
+
+- parallel programming pattern language, tim Mattson
+http://parlang.pbworks.com/f/programmability.pdf
+
+- Parallel Programming with MPI by Peter Pacheco
+http://www.cs.usfca.edu/~peter/cs220/code.html
+
+- http://www.math-cs.gordon.edu/courses/cps343/doc/mpi.guide.pdf
+
+- SC12 tuto
+
+- U. Cambridge course: http://people.ds.cam.ac.uk/nmm1/MPI/index.html
+
+- des slides super:
+http://fr.slideshare.net/jsquyres/mpi-history-1
+
+- le blog de Jeff Squyres 
+http://blogs.cisco.com/performance/
+http://blogs.cisco.com/tag/hpc/
+	
+- autre bonne reference
+http://condor.cc.ku.edu/~grobe/docs/intro-MPI-C.shtml
+
+- cours Dongarra: http://web.eecs.utk.edu/~dongarra/WEB-PAGES/SPRING-2012/
+
+- intro HPC
+http://cs.nyu.edu/courses/fall12/CSCI-GA.3033-012/
+
+- example game of life
+http://www.mcs.anl.gov/research/projects/mpi/tutorial/advmpi/pvmmpi05-advmpi.pdf
+
+
+cours de l'IDRIS
+
+MPI de Bull:
+http://www.in2p3.fr/actions/formation/Info12/IN2P3_saugel_part4-interconnect_MPI_restitution.pdf
+
+Parallel computing:
+https://computing.llnl.gov/tutorials/parallel_comp/
+http://parlab.eecs.berkeley.edu/sites/all/parlab/files/HPC_AppPerf_2012_ParLab.pdf
+
+
+autres ressources:
+universite du Minessota:
+http://static.msi.umn.edu/tutorial/scicomp/general/
+
+http://parlang.pbworks.com/f/programmability.pdf
+http://www.cs.uiuc.edu/homes/snir/PPP/
+http://parlab.eecs.berkeley.edu/wiki/_media/patterns/data_parallel.pdf
+
+super :
+http://parlab.eecs.berkeley.edu/sites/all/parlab/files/MPI_bootcamp_2012.pdf
+
+tuto:
+http://www.mcs.anl.gov/research/projects/mpi/learning.html
+https://computing.llnl.gov/tutorials/mpi/
+https://computing.llnl.gov/mpi/documentation.html
+
+http://en.wikipedia.org/wiki/Parallel_computing
+http://www.mcs.anl.gov/research/projects/mpi/usingmpi2/examples/main.htm
+
+https://hpc-forge.cineca.it/files/ScuolaCalcoloParallelo_WebDAV/public/anno-2013/Summer-School/
+
+profile:
+http://mpip.sourceforge.net/
+
+Perf tools:
+http://www.open-mpi.org/faq/?category=perftools
+https://computing.llnl.gov/tutorials/mpi_performance/
+
+Perf measurements: bandwidth / latency
+http://www.pdc.kth.se/education/tutorials/summer-school/mpi-exercises/mpi-lab-codes
+
+
+VampirTrace:
+http://www.vampir.eu/public/files/pdf/vtcheatsheet_a4.pdf
+http://www.vi-hps.org/upload/material/kaust10/vi-hps-kaust10-VampirVT_Exercise.pdf
+
+TAU / Scalasca ?
+
+MPE: http://www.mcs.anl.gov/research/projects/perfvis/download/index.htm#documentation
+
+Trace visualization:
+http://www.alcf.anl.gov/sites/www.alcf.anl.gov/files/jumpshot-q-workshop.pdf
+vampir: free eval version
+
+Debug : DDT ?
+gdb ?
+
+
+Site web des centres de calcul ?
+
+
+Example de code : topology ?
+
+EPCC:
+- MPI
+- Parallel Design Patterns
+- Parallel Numerical Algorithms
+- Parallel Programming Languages
+- Performance Programming
+- Programming Skills
+- Shared-Memory Programming with OpenMP
+- Software Carpentry Boot Camp
+- Software Development
+
+idees pour le cours:
+- architecture hardware (CPU, Cache L1/L2/L3, mémoire); exercice cache-blocking
+- architecture cluster: (different type de noeuds: calcul, login, IO, etc...), infiniband (expliquer diff par rapport au reseau standard), ...
+- calcul // en général : algorithme / implantation, les dwarfs, strong/weak scaling, ...
+- outils d'analyse de perf : profiling, compteur hardware (PAPI), ...
+- mini-introduction "module"; prendre exemple sur poincare
+- compiler mpi (OpenMPI), option du configure 
+
+- introduction MPI: comm blocking / non-bloking; synchronous / asynchronous; deadlock; MPI_Status; recouvrement comm / calcul
+- exo en C / Fortran
+- MPI-IO léger; IO parallèle
+- MPE / visualisation
+
+- mini-projet euler2d (au choix C / Fortran): parallelisation
+
+
+wikipedia:
+http://en.wikipedia.org/wiki/Computer_performance
+http://en.wikipedia.org/wiki/Supercomputer
+http://en.wikipedia.org/wiki/Parallel_computing
+http://en.wikipedia.org/wiki/Parallel_programming_model
+
+Autres:
+http://www.futurechips.org/parallel-programming-2/parallel-programming-clarifying-pipeline-parallelism.html
+
+PAPI, Scalasca:
+http://www.in2p3.fr/actions/formation/Info12/presentationTAU.pdf
+
+Valgrind, Cache blocking / loop blocking
+http://www.in2p3.fr/actions/formation/Info12/Valgrind_weidendorfer.pdf
+
+
+un autre cours a regarder:
+http://webcourse.cs.technion.ac.il/236370/Winter2013-2014/en/ho_Lectures.html
+
+ajout 2014:
+http://serge.liyun.free.fr/serge/sources/cours_parallelism.pdf
+
+Github:
+https://github.com/jeffhammond/HPCInfo
+
+
+Linear Algebra:
+ftp://ftp.idsa.prd.fr/pub/netlib/utk/people/JackDongarra/la-sw.html
+
+Dwarfs:
+http://view.eecs.berkeley.edu/wiki/Dwarfs
+
+Hari Sundar
+http://www.cs.utah.edu/~hari/teaching/spring2015.html
+
+ModernGPU:
+http://nvlabs.github.io/moderngpu/intro.html
+
+python:
+https://github.com/jrjohansson/scientific-python-lectures
+https://github.com/ipython/ipython-in-depth
+
+SYSCL ??
+https://github.com/egaburov/triSYCL
+
+spectral methods:
+https://github.com/openmichigan/PSNM
+https://en.wikibooks.org/wiki/Parallel_Spectral_Numerical_Methods
+
+
+memoire cache:
+http://fr.slideshare.net/Raaja92/caches-microp
+
+A fouiller:
+http://extremecomputingtraining.anl.gov/
+
+
+MPI static analyzer
+https://github.com/0ax1/MPI-Checker
+
+Un doc du DOE
+http://science.energy.gov/~/media/bes/pdf/reports/files/cmsc_rpt.pdf
+http://www.nsf.gov/mps/ResearchDirectionsWorkshop2010/RWD-color-FINAL-usletter_2010-07-16.pdf
+
+trouve grace a http://avtechscientific.com/contact
+
+
