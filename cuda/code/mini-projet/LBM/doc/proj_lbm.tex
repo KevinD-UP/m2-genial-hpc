@@ -1,0 +1,200 @@
+\documentclass[utf8,usenames,dvipsnames,hyperref={pdfpagemode=FullScreen,urlcolor=blue}]{beamer}
+
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+%\setmainfont{Arial}
+%\setmainfont{Broadway}
+
+\usepackage{commath}
+\usepackage{amsmath,amssymb,amsfonts}
+%\usepackage{mathspec}
+%\setmathsfont(Digits,Latin,Greek)[Numbers={Lining,Proportional}]{Broadway}
+
+\usepackage{pgfpages}
+
+\usepackage{xcolor}
+\definecolor{myblue}{RGB}{0,153,255}
+\definecolor{myyellow}{RGB}{234,187,0}
+\colorlet{darkgreen}{OliveGreen}
+
+
+%%%%%%%%%%%%%%%%%%%
+\hypersetup{%
+  pdftitle={KESTENER-MASTER-SPECIALISE-HPC-IA-2021},%
+  pdfauthor={Pierre Kestener - CEA Saclay - https://github.com/pkestene},
+  pdfsubject={MASTER - HPC/IA - 2021},
+  pdfkeywords={CFD, GPU, CUDA, EXASCALE, PERFORMANCE PORTABILITY, KOKKOS, SDM, HIGH-ORDER SCHEMES},
+  pdfproducer={pdflatex avec la classe BEAMER},
+  bookmarksopen=false,
+  urlcolor=blue
+%  pdfpagemode=FullScreen
+}
+
+\newcommand\myurl[1]{\textcolor{purple}{\underline{\url{#1}}}}
+\newcommand\myhref[2]{\textcolor{purple}{\underline{\href{#1}{#2}}}}
+
+
+\title{Mini-projet du cours de programmation GPU}
+\subtitle{}
+\date{11 janvier 2021}
+\author[P. Kestener]{Pierre KESTENER}
+\institute{CEA / DRF / IFRU / DEDIP\\
+Master spécialisé HPC-IA, Mines Paritech, Sophia Antipolis}
+\titlegraphic{\flushright\includegraphics[height=1.5cm]{graphics/logo_cea_verticale}}
+
+\mode<presentation>
+\usetheme{cea}
+% {
+%   \usetheme{Warsaw}
+%   \setbeamertemplate{navigation symbols}{}
+
+%   \usecolortheme{beaver}
+%   \usecolortheme{lily,sidebartab}
+
+%   \usefonttheme{serif}
+
+%   \setbeamertemplate{footline}[page number]
+%   \setbeamertemplate{sidebar canvas right}[vertical shading][top=palette
+%   primary.bg,%,middle=white,
+%   bottom=palette primary.bg]
+
+%   \useinnertheme{default}
+% }
+
+% uncomment if you do want notes
+% \setbeameroption{show notes on second screen=right}
+
+% enlarge
+\setbeamersize{text margin left=5pt,text margin right=5pt}
+
+% comment if you do not want grey item
+\setbeamercovered{transparent}
+
+% comment if you do not want a summary at each section
+\AtBeginSection[]{
+  \begin{frame}{Summary}
+    \small \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGE DE TITRE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LBM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{La méthode dite de Boltzmann sur réseau}
+  % \framesubtitle{My subtitle}
+
+  \begin{itemize}
+  \item LBM (Lattice Boltzmann Method) : simulation d'écoulement fluide
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{./images/lbm_cyl}
+  \end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Théorie cinétique des gaz}
+  % \framesubtitle{My subtitle}
+
+  \begin{itemize}
+  \item \myhref{https://fr.wikipedia.org/wiki/Th\%C3\%A9orie_cin\%C3\%A9tique_des_gaz}{théorie cinétique des gaz}
+  \item fonction de distribution $f(\overrightarrow{\mathbf{r}},\overrightarrow{\mathbf{c}},t)$, avec $\overrightarrow{\mathbf{r}} \in \mathbb{R}^{3}$ et $\overrightarrow{\mathbf{c}} \in \mathbb{R}^{3}$
+  \item interprétation de $f(\overrightarrow{\mathbf{r}},\overrightarrow{\mathbf{c}},t) \dif \overrightarrow{\mathbf{r}} \dif \overrightarrow{\mathbf{c}}$ : nombre de particules dans le volume élémentaire $\dif \overrightarrow{\mathbf{r}}$ et de vitesse comprise entre $\overrightarrow{\mathbf{c}}$ et $\overrightarrow{\mathbf{c}} + \dif \overrightarrow{\mathbf{c}}$
+  \item les \textcolor{blue}{\bf grandeurs hydrodynamiques macroscopiques usuelles} (densité, vitesse, énergie, ...) sont définies comme les moments de la fonction de distribution:\\
+    \begin{itemize}
+    \item \textcolor{red}{\bf densité} : $\rho(\overrightarrow{\mathbf{r}},t) = \int f(\overrightarrow{\mathbf{r}},\overrightarrow{\mathbf{c}},t) \dif \overrightarrow{\mathbf{c}} $
+    \item \textcolor{red}{\bf quantité de mouvement} : $\overrightarrow{\mathbf{p}}(\overrightarrow{\mathbf{r}},t) = \int f(\overrightarrow{\mathbf{r}},\overrightarrow{\mathbf{c}},t) \overrightarrow{\mathbf{c}} \dif \overrightarrow{\mathbf{c}} = \rho \overrightarrow{\mathbf{v}}$
+    \item \textcolor{red}{\bf énergie cinétique} $e_{{cin}}(\overrightarrow{\mathbf{r}},t) = \int f(\overrightarrow{\mathbf{r}},\overrightarrow{\mathbf{c}},t) ||\overrightarrow{\mathbf{c}}||^{2} \dif \overrightarrow{\mathbf{c}} = \rho \overrightarrow{\mathbf{v}}$
+    \end{itemize}
+  \item si on sait faire évoluer dans le temps $f$, alors on peut connaitre la dynamique du mouvement du fluide $\Rightarrow$ \myhref{https://en.wikipedia.org/wiki/Boltzmann_equation}{équation de boltzmann}
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{L'équation de Boltzmann}
+
+  équation de Boltzmann est une équation de transport qui décrit comment évolue dans le temps la distribution des particules
+
+  \begin{equation*}
+    \frac{\partial f}{\partial t} + \overrightarrow{\mathbf{c}}\cdot\nabla_{\overrightarrow{\mathbf{r}}} f + \overrightarrow{\mathbf{F}} \cdot \frac{\partial f}{\partial \overrightarrow{\mathbf{c}}} = \left(\frac{\partial f}{\partial t} \right)_\mathrm{coll}
+  \end{equation*}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{La méthode dite de Boltzmann sur réseau}
+
+  \begin{itemize}
+  \item \textcolor{red}{\bf Problème:} pour simuler numériquement, il faut discrétiser $f(\overrightarrow{\mathbf{r}},\overrightarrow{\mathbf{c}},t)$ sachant que $\overrightarrow{\mathbf{r}} \in \mathbb{R}^{3}$ et $\overrightarrow{\mathbf{c}} \in \mathbb{R}^{3}$ $\Rightarrow$ le nombre de variables est rapidement gigantesque ($\sim N^{6}$)\\
+exemple : $N=100 \Rightarrow N^{6}= 10^{12}$ soit 8 TBytes de mémoire vive juste pour stocker $f$ à un pas de temps, c'est impraticable en pratique.
+  \item \textcolor{darkgreen}{\bf Solution:} on discrétise l'espace (variable $\overrightarrow{\mathbf{r}}$ sur une grille $N^{3}$ et la vitesse $\overrightarrow{\mathbf{c}}$ sur un petit nombre (quelque unités à quels dizaines); cela s'appelle la méthode dite de Boltzmann sur réseau qui donne des simulations numériques en bon accord avec les observations expérimentales.\\
+    avantages principaux des méthodes LBM: facile à mettre en \oe uvre numériquement et facile à paralléliser.
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{La méthode dite de Boltzmann sur réseau}
+
+  \begin{minipage}{0.66\linewidth}
+    De manière simplifiée, on peut dire que l'évolution temporelle de la fonction de distribution (où plus exactement des $q$ composantes de $f$) est calculée en itérant les deux opérations suivantes:
+
+    \begin{itemize}
+    \item collision: $f_i(\vec{x},t+\delta_t) = f_i(\vec{x},t) + \frac{f_i^{eq}(\vec{x},t)-f_i(\vec{x},t)}{\tau_f}$, avec $ 0 \leq i < q$\\
+      le terme de collision choisi ici modélise un retour (relaxation) vers la distribution d'équilibre 
+    \item stream: $f_i(\vec{x}+\vec{e}_i,t+1) =f_i(\vec{x},t)$\\
+      les particules modélisées par $f_{i}$ se déplacent dans la direction $e_{i}$
+    \end{itemize}
+
+  \end{minipage}
+  %
+  \begin{minipage}{0.33\linewidth}
+    \includegraphics[width=0.9\linewidth]{./images/1280px-LB_D2Q9arrows.png}
+  \end{minipage}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Mini-projet}
+
+  \textcolor{red}{Objectif:} En se basant soit sur la version python, soit sur la version C++, et en utilisant le cours de programmation des GPUs, proposer une version parallèlisée de la méthode LBM.
+
+  \begin{itemize}
+  \item Choisir le modèle de programmation adapté pour la parallélisation:
+    \begin{itemize}
+    \item numba pour python
+    \item OpenACC pour C++
+    \item CUDA/C++ pour les plus courageux ;)
+    \end{itemize}
+  \item Fournir un mini rapport détaillant votre démarche (identification des noyaux de calcul) et une étude de performance: on pourra par exemple présenté une courbe de speedup (rapport du temps de calcul de la version séquentielle fournie sur le temps de calcul de la version parallèle).
+  \end{itemize}
+
+
+\end{frame}
+
+\end{document}
+
