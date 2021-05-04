@@ -2,6 +2,25 @@
 
 Resources pour le cours d'introduction au HPC / calcul haute performance du master Génie Informatique en Alternance [GENIAL](http://www.informatique.univ-paris-diderot.fr/formations/masters/genial/accueil)
 
+## Programme approximatif
+
+### 7 mai
+
+- intro générale HPC
+- intro MPI + TP
+
+### 14 mai
+
+- intro GPU + TP
+- intro programmation par directives : OpenAcc
+
+### 21 mai
+
+- intro modèles de programmation C++ haut-niveau, portabilité de performance CPU/GPU
+- intro Kokkos + TP
+- TP [Problème du voyageur de commerce](https://github.com/pkestene/tsp) avec OpenAcc, Kokkos, OpenMP, OpenMP target, stdpar, sycl.
+
+
 ## biblio
 
 ### Scientific Programming and Computer Architecture
