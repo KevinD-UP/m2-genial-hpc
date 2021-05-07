@@ -1,4 +1,4 @@
-/* 
+/*
  * mpicc -O3 -o compute_pi_mpi compute_pi_mpi.c -lm
  */
 

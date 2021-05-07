@@ -9,12 +9,7 @@
 
 #include <unistd.h> // for sysconf
 #include <sys/times.h> // for times and struct tms
-
-double wtime( void )
-{
- struct tms buf;
- return ( (double) (times( &buf ) ) ) / ( (double) ( sysconf( _SC_CLK_TCK ) ) );
-} 
+#include <time.h> // for clock
 
 int main(int argc, char* argv[])
 {
@@ -38,7 +33,7 @@ int main(int argc, char* argv[])
   // initialize random sequence seed
   srand(12);
 
-  t1=wtime();
+  t1=clock();
   for (i=0; i<N; i++) {
     // x,y cartesian coordinate in [0, 1]
     double x = ( (double) rand() ) / RAND_MAX;
@@ -50,13 +45,15 @@ int main(int argc, char* argv[])
       sum_pi++;
     
   }
-  t2=wtime();
+  t2=clock();
+
+  double duration = (double) (t2-t1) / (double) (CLOCKS_PER_SEC);
 
   printf("N=%ld, sum_pi=%ld\n",N,sum_pi);
   pi_approx=(4.0*sum_pi)/N;
   printf("Approx pi = %g\n",pi_approx);
   printf("(pi_approx-pi)/pi=%8.7g\n",fabs(pi_approx-M_PI)/M_PI);
-  printf("time in seconds: %g\n",t2-t1);
+  printf("time in seconds: %g\n",duration);
 
   return 0;
 }
