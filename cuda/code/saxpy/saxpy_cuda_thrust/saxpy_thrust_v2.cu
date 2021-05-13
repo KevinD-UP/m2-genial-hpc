@@ -1,5 +1,5 @@
 /*
- * nvcc -O3 --ptxas-options=-v -gencode=arch=compute_20,code=sm_20 saxpy_thrust_v2.cu -o saxpy_thrust_v2
+ * nvcc -O3 --ptxas-options=-v -gencode=arch=compute_80,code=sm_80 saxpy_thrust_v2.cu -o saxpy_thrust_v2
  *
  */
 
