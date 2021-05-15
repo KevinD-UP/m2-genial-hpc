@@ -18,7 +18,7 @@
 
 
 // define a SAXPY functor
-struct saxpy {
+struct saxpy : public thrust::binary_function<float,float,float> {
   float a; 
   
   saxpy(float a) : a(a) {}
