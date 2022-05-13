@@ -4,17 +4,17 @@ Resources pour le cours d'introduction au HPC / calcul haute performance du mast
 
 ## Programme approximatif
 
-### 7 mai
+### 13 mai 2022
 
 - intro générale HPC
 - intro MPI + TP
 
-### 14 mai
+### 20 mai 2022
 
 - intro GPU + TP
 - intro programmation par directives : OpenAcc
 
-### 21 mai
+### 3 juin 2022
 
 - intro modèles de programmation C++ haut-niveau, portabilité de performance CPU/GPU
 - intro Kokkos + TP
@@ -57,7 +57,7 @@ Resources pour le cours d'introduction au HPC / calcul haute performance du mast
 - http://syllabus.gputeachingkit.com/
 - [udemy/cuda-programming-masterclass](https://www.udemy.com/cuda-programming-masterclass/)
 - SDL2 Graphics User Interface : https://github.com/rogerallen/smandelbrotr
-- [mgbench](https://github.com/tbennun/mgbench) : a multi-GPU benchmark 
+- [mgbench](https://github.com/tbennun/mgbench) : a multi-GPU benchmark
 - performance analysis : [parallelforall blog on Nsight](https://devblogs.nvidia.com/using-nsight-compute-to-inspect-your-kernels/?utm_source=feedburner&utm_medium=email&utm_campaign=Feed%3A+nvidia%2Fparallelforall+%28NVIDIA+Parallel+Forall+Blog%29)
 - misc : [convert CUDA to portable C++ for AMD GPU](https://github.com/ROCm-Developer-Tools/HIP)
 - [List of Nvidia GPUs](https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units)
@@ -150,7 +150,7 @@ How to build clang++ with openmp target (off-loading) support ?
 - https://developer.nvidia.com/blog/solar-storm-modeling-gpu-openacc/
 
 Which compiler with OpenAcc support ?
-- [Nvidia/PGI compiler](https://developer.nvidia.com/hpc-sdk) is the oldest and probably more mature OpenACC compiler. 
+- [Nvidia/PGI compiler](https://developer.nvidia.com/hpc-sdk) is the oldest and probably more mature OpenACC compiler.
 - [GNU/gcc](https://www.openacc.org/tools/gcc-for-openacc) provided by [Spack](https://spack.readthedocs.io/en/latest/) is the easiest way to get started for OpenMP/OpenACC offload with the GNU compiler.
 
 ### C++17 and parallel STL for CPU/GPU
@@ -240,13 +240,13 @@ Alternate programming models for programming modern computing architectures in a
 
 - [Udacity CS344 video archive](https://www.youtube.com/playlist?list=PLvvwOd40Y2t9lCTtCOQLJd9vLA2muyJuA)
 - cuda related : https://gist.github.com/allanmac/f91b67c112bcba98649d - cuda_assert
-- [FPGA, loop transformation, matrix multiplication](https://arxiv.org/pdf/1805.08288.pdf) 
+- [FPGA, loop transformation, matrix multiplication](https://arxiv.org/pdf/1805.08288.pdf)
 - [Cycle du hype](https://fr.wikipedia.org/wiki/Cycle_du_hype)
 - https://press3.mcs.anl.gov/atpesc/files/2019/08/ATPESC_2019_Dinner_Talk_8_8-7_Foster-Coding_the_Continuum.pdf
 
 ### Shell and command line skills
 
-- Learn/improve your skill on Linux’s command line/Bash  
+- Learn/improve your skill on Linux’s command line/Bash
   e.g. http://swcarpentry.github.io/shell-novice/
 - http://www.tldp.org/LDP/abs/html/
 - http://www.epons.org/commandes-base-linux.php
