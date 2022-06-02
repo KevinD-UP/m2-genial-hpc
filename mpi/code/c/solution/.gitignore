@@ -7,6 +7,7 @@ tau.edf
 tau.trc
 tau.slog2
 tautrace.*
+*.log
 
 *.o
 a.out
@@ -17,6 +18,8 @@ helloworld_mpi2
 helloworld_mpi2b
 helloworld_mpi3
 helloworld_mpi3b
+helloworld_mpi3b.old
+helloworld_mpi4
 
 compute_pi
 compute_pi_mpi
@@ -26,6 +29,7 @@ mpi_ring
 mpi_ring2
 
 mpi_bandwidth
+mpi_latency
 
 trap
 mpi_trap
