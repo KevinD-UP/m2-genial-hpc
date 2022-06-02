@@ -18,8 +18,8 @@ git clone https://github.com/OpenACC/openacc-training-materials
 
 1. Sur odette, configurer l'environement pour pouvoir utiliser le compilateur Nvidia pour OpenAcc
 ```shell
-module use /opt/nvidia/hpc_sdk_21_3/modulefiles/
-module load nvhpc/21.3
+module use /opt/nvidia/hpc_sdk_22_5/modulefiles/
+module load nvhpc/21.7
 ```
 2. Se référer au document du TP pour lancer un serveur jupyter sur la machine distante odette et sur la machine local ouvrir un tunnel ssh pour rediriger un port local vers odette et ainsi visualiser le notebook jupyter sur vortre machine local tout en exécutant du code sur la machine distante.
 
