@@ -31,7 +31,7 @@ Resources pour le cours d'introduction au HPC / calcul haute performance du mast
 - [Seven Dwarfs of HPC](https://moodle.rrze.uni-erlangen.de/course/view.php?id=113&lang=en)
 - [CSCI-5576/4576: High Performance Scientific Computing](https://github.com/cucs-hpsc/hpsc-class)
 - Mark Horowitz talk at ISSCC_2014: [Computing's energy problem](http://eecs.oregonstate.edu/research/vlsi/teaching/ECE471_WIN15/mark_horowitz_ISSCC_2014.pdf)
-- [Introduction to High-Performance Scientific Computing, book and slides by Victor Eijkhout](https://pages.tacc.utexas.edu/~eijkhout/istc/istc.html)
+- [Introduction to High-Performance Scientific Computing, book and slides by Victor Eijkhout](https://pages.tacc.utexas.edu/~eijkhout/istc/istc.html) and [The Art of HPC website](https://theartofhpc.com/)
 - [San Diego Summer institute](https://github.com/sdsc/sdsc-summer-institute-2019)
 - [Finnish CSC summer school](https://github.com/csc-training/summerschool)
 - [Computational Physics book by K. N. Anagnostopoulos](http://www.physics.ntua.gr/~konstant/ComputationalPhysics/C++/Book/ComputationalPhysicsKNA2ndEd_nocover.pdf)
@@ -77,15 +77,21 @@ Resources pour le cours d'introduction au HPC / calcul haute performance du mast
 
 - [C++ wrapper library](https://github.com/eyalroz/cuda-api-wrappers)
 - [template CMake project for CUDA](https://github.com/pkestene/cuda-proj-tmpl)
+- [Multi-GPU programming from FZJ](https://github.com/FZJ-JSC/tutorial-multi-gpu)
+- [Multi-GPU programming from Nvidia](https://github.com/NVIDIA/multi-gpu-programming-models)
+- [CUDA Library samples](https://github.com/NVIDIA/CUDALibrarySamples) ([cuFFT](https://docs.nvidia.com/cuda/cufft/index.html), [cuSolver](https://docs.nvidia.com/cuda/cusolver/index.html) , [cuSparse](https://docs.nvidia.com/cuda/cusparse/index.html), ...)
+- [MatX](https://github.com/NVIDIA/MatX), a GPU-Accelerated Numerical Computing C++ library
 
 ### CUDA / python
 
+- (NEW 2021) [legate](https://github.com/nv-legate/legate.core) and [cuNumeric](https://github.com/nv-legate/cunumeric)
+- [cuNumeric](https://github.com/nv-legate/cunumeric): drop-in remplacement for Numpy, built on top of [legion](https://github.com/StanfordLegion/legion)
+- [stdpar + cython](https://github.com/shwina/stdpar-cython)
 - [Numba](http://numba.pydata.org/) // [recommended numba tutorial for GPU programming](https://github.com/ContinuumIO/gtc2019-numba)
 - [CuPy](https://cupy.chainer.org/)
 - [pycuda](https://documen.tician.de/pycuda/)
 - [python / C++ CUDA interface (SWIG and Cython)](https://github.com/pkestene/npcuda-example)
 - [python / C++ CUDA interface with pybind11](https://github.com/pkestene/pybind11-cuda)
-- [legate](https://legion.stanford.edu/pdfs/legate-preprint.pdf)
 - [PythonHPC](https://github.com/eth-cscs/PythonHPC)
 - [HPC Python video's](https://www.cscs.ch/publications/tutorials/2018/high-performance-computing-with-python/)
 - [Hands-On GPU Programming with Python and CUDA](https://www.oreilly.com/library/view/hands-on-gpu-programming/9781788993913/) and [examples](https://github.com/PacktPublishing/Hands-On-GPU-Programming-with-Python-and-CUDA/tree/9e3473f834123860726712dca6259bb4e057a001)
@@ -101,6 +107,29 @@ Resources pour le cours d'introduction au HPC / calcul haute performance du mast
 - [tensorflow tutorial](https://github.com/eth-cscs/SummerSchool2019/tree/master/topics/tensorflow)
 - [AI cheatsheet](doc/ai_cheatsheet.pdf)
 - [m2dsupsdlclass](https://github.com/m2dsupsdlclass/lectures-labs)
+- [deep-learning-with-python-notebooks](https://github.com/fchollet/deep-learning-with-python-notebooks)
+- https://d2l.ai/
+- [Building a neural network FROM SCRATCH (no Tensorflow/Pytorch, just numpy & math)](https://www.youtube.com/watch?v=w8yWXqWQYmU&t=1s)
+
+### Physics Informed Neural Networks (PINN)
+
+- [Artificial Neural Networks for Solving Ordinary
+and Partial Differential Equations](https://www.cs.uoi.gr/~lagaris/papers/TNN-LLF.pdf), Lagaris etal, IEEE TRANSACTIONS ON NEURAL NETWORKS, VOL. 9, NO. 5, SEPTEMBER 1998
+- Physics Informed Deep Learning (Part I): Data-driven, Solutions of Nonlinear Partial Differential Equations, https://arxiv.org/pdf/1711.10561.pdf
+- Raissi et al, Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations, https://doi.org/10.1016/j.jcp.2018.10.045
+- https://github.com/openhackathons-org/gpubootcamp/tree/master/hpc_ai/PINN
+- [Nvidia Modulus documentation](https://docs.nvidia.com/deeplearning/modulus/index.html)
+- [Nvidia Modulus source code](https://gitlab.com/nvidia/modulus/modulus)
+- [Nvidia Modulus examples](https://gitlab.com/nvidia/modulus/examples)
+- [DeepXDE](https://github.com/lululxvi/deepxde)
+- [TensorDiffEq](https://github.com/tensordiffeq/TensorDiffEq)
+- [SciANN](https://github.com/sciann/sciann), [SciANN examples](https://github.com/sciann/sciann-applications)
+- [neurodiffeq](https://github.com/NeuroDiffGym/neurodiffeq)
+- Julia's [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl), [NeuralOperators.jl](https://github.com/SciML/NeuralOperators.jl) and [OperatorLearning](https://github.com/SciML/OperatorLearning.jl)
+- https://github.com/maziarraissi/PINNs
+- [Fourier Neural Operator](https://github.com/zongyi-li/fourier_neural_operator)
+- a review article : [Scientific Machine Learning Through Physics–Informed Neural Networks: Where we are and What’s Next](https://link.springer.com/article/10.1007/s10915-022-01939-z)
+- [slides by Lu Lu (Univ. Penn)](https://github.com/lululxvi/tutorials/blob/master/20211210_pinn/pinn.pdf)
 
 ### Graphics / GPU
 
@@ -167,6 +196,11 @@ Which compiler ?
 - clang >= 10.0.1 for multicore CPUs
 - [Intel OneApi HPC Toolkit](https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html)
 
+### stdpar for Fortran
+
+- https://developer.nvidia.com/blog/accelerating-fortran-do-concurrent-with-gpus-and-the-nvidia-hpc-sdk/
+- example code [euler2d_cudaFortran](https://github.com/pkestene/euler2d_cudaFortran) : solving Euler's equations in Fortran with stdpar (do concurrent loops)
+
 ### SYCL
 
 - [Khronos](https://www.khronos.org/sycl/resources)
@@ -224,6 +258,17 @@ Alternate programming models for programming modern computing architectures in a
 - https://github.com/LLNL/RAJA et https://github.com/LLNL/RAJA-tutorials
 - https://github.com/triSYCL/triSYCL
 - https://github.com/codeplaysoftware/computecpp-sdk
+
+### Performance portability
+
+- [Performance portability](https://performanceportability.org/)
+
+### Kokkos/C++ library
+
+- https://github.com/kokkos/kokkos
+- https://github.com/kokkos/kokkos-tutorials
+- https://github.com/kokkos/kokkos-tutorials/wiki/Kokkos-Lecture-Series
+- [C++ Performance Portability - A Decade of Lessons Learned - Christian Trott - CppCon 2022](https://www.youtube.com/watch?v=jNGGKFkt4lA)
 
 ### CMake
 
