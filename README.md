@@ -4,17 +4,17 @@ Resources pour le cours d'introduction au HPC / calcul haute performance du mast
 
 ## Programme approximatif
 
-### 13 mai 2022
+### 12 mai 2023
 
 - intro générale HPC
 - intro MPI + TP
 
-### 20 mai 2022
+### 26 mai 2023
 
 - intro GPU + TP
 - intro programmation par directives : OpenAcc
 
-### 3 juin 2022
+### 2 juin 2023
 
 - intro modèles de programmation C++ haut-niveau, portabilité de performance CPU/GPU
 - intro Kokkos + TP
