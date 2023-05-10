@@ -17,6 +17,14 @@ tab_width = 4
 indent_style = tab
 #indent_size = 4
 
+[*.{c,h,cpp}]
+indent_style = space
+indent_size = 2
+
+[*.{tex,cls,lua}]
+indent_style = space
+indent_size = 2
+
 # YAML should not use tab as indentation
 [*.yml]
 indent_style = space

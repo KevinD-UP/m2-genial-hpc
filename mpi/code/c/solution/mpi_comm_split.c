@@ -29,9 +29,9 @@ int main (int argc, char* argv[])
   MPI_Status status;
 
   MPI_Comm newComm;
-  
+
   MPI_Init(&argc, &argv);
-  
+
   MPI_Comm_size(MPI_COMM_WORLD, &nbTasks);
   MPI_Comm_rank(MPI_COMM_WORLD, &myRank);
 
@@ -50,8 +50,8 @@ int main (int argc, char* argv[])
     MPI_Comm_rank(newComm, &myRankSplit);
 
     for (iProc=0; iProc<nbTasks; iProc++) {
-      if (myRank == iProc && getColor(myRank) == 0)
-	printf("[myRank=%d] I'm rank %d in the new communicator out of %d (color = %d)\n",myRank, myRankSplit, nbTasksSplit, getColor(myRank));
+      if (myRank == iProc)
+	printf("[comm world rank=%d] I'm rank %d in the new communicator out of %d processes (color = %d)\n",myRank, myRankSplit, nbTasksSplit, getColor(myRank));
       MPI_Barrier(MPI_COMM_WORLD);
     }
 
@@ -59,7 +59,7 @@ int main (int argc, char* argv[])
     MPI_Reduce(&myRank, &reduceVar, 1, MPI_INT, MPI_SUM, 0, newComm);
 
     if (myRankSplit == 0)
-      printf("Sum of rank for color %d is : %d\n",getColor(myRank),reduceVar);
+      printf("Sum of rank for color %d is : %d (comm world ranks is %d)\n",getColor(myRank),reduceVar,myRank);
 
   }
 

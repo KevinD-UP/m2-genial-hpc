@@ -186,7 +186,7 @@ exemple : $N=100 \Rightarrow N^{6}= 10^{12}$ soit 8 TBytes de mémoire vive just
   \begin{itemize}
   \item Choisir le modèle de programmation adapté pour la parallélisation:
     \begin{itemize}
-    \item numba pour python
+    \item numba (ou Cupy) pour python~\footnote{éventuellement essayer legate sachant qu'il faudra bien analyser les messages d'erreur et contourner les fonctionnalités non encore implantées dans legate/cunumeric}
     \item OpenACC pour C++
     \item CUDA/C++ pour les plus courageux ;)
     \end{itemize}
