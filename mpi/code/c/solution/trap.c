@@ -1,5 +1,5 @@
 /* File:    trap.c
- * Purpose: Calculate definite integral using trapezoidal 
+ * Purpose: Calculate definite integral using trapezoidal
  *          rule.
  *
  * Input:   a, b, n
@@ -32,7 +32,7 @@ int main(void) {
 
    h = (b-a)/n;
    integral = Trap(a, b, n, h);
-   
+
    printf("With n = %d trapezoids, our estimate\n", n);
    printf("of the integral from %f to %f = %.15f\n",
       a, b, integral);
@@ -45,7 +45,7 @@ int main(void) {
  * Purpose:     Estimate integral from a to b of f using trap rule and
  *              n trapezoids
  * Input args:  a, b, n, h
- * Return val:  Estimate of the integral 
+ * Return val:  Estimate of the integral
  */
 double Trap(double a, double b, int n, double h) {
    double integral;

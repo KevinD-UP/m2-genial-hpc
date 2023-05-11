@@ -5,27 +5,27 @@
  */
 
 /*
- * Originally from the book, CUDA by example, 
+ * Originally from the book, CUDA by example,
  * by Jason Sanders and Edward Kandrot,
  * Addison-Wesley, 2010
  * http://developer.nvidia.com/cuda-example-introduction-general-purpose-gpu-programming
  */
 
 /*
- * Slightly modified for better error handling : 
- * macro CUDA_KERNEL_CHECK accepts 2 arguments, 
- * first one is a string, 
+ * Slightly modified for better error handling :
+ * macro CUDA_KERNEL_CHECK accepts 2 arguments,
+ * first one is a string,
  * second one cant be DEVICE_SYNC or DEVICE_NO_SYNC to trigger calling
  * cudaDeviceSynchronize before actaully probing the GPU last error.
  *
  * cudaDeviceSynchronize ensures the CPU waits the GPU to finish computing
  * the last kernel, and then we check the status.
  *
- * without GPU synchronization, since GPU computing is asynchronous, 
+ * without GPU synchronization, since GPU computing is asynchronous,
  * in case of an actual error, we may catch the error message much later
  *
  * with GPU synchronization, we make sure that in case of an actual error,
- * we will catch the error rightaway, but most of the time the kernel 
+ * we will catch the error rightaway, but most of the time the kernel
  * which are running fine, are forced to synchronize, which is not a good
  * idea for performance
  *
@@ -33,9 +33,9 @@
  * ALWAYS_SYNC_GPU, is that case all CUDA kernel will be checked with
  * synchronization on.
  *
- * For production run, you can disable synchronization, i.e. just don't 
+ * For production run, you can disable synchronization, i.e. just don't
  * define symbol ALWAYS_SYNC_GPU.
- * 
+ *
  */
 
 #include <stdio.h>
@@ -73,7 +73,7 @@ int main( int argc, char* argv[] )
 
   // device variables
   int *dev_a, *dev_b, *dev_c;
-  
+
   // CPU memory allocation / initialization
   a = (int *) malloc(N*sizeof(int));
   b = (int *) malloc(N*sizeof(int));
@@ -91,8 +91,8 @@ int main( int argc, char* argv[] )
                               cudaMemcpyHostToDevice ) );
   CUDA_API_CHECK( cudaMemcpy( dev_b, b, N*sizeof(int),
                               cudaMemcpyHostToDevice ) );
-  
-  
+
+
   // perform computation on GPU
   int nbThreadsPerBlock = 8;
   dim3 blockSize(nbThreadsPerBlock,1,1);

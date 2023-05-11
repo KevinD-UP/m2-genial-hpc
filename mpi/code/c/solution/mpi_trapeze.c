@@ -29,10 +29,10 @@ double compute_integral(double start, double dx, int nSegments)
   double local_int = 0.0;
 
   for (i=0; i<nSegments; i++) {
-    
+
     double x1 = start + dx*i;
     local_int += ( f(x1) + f(x1 + dx) ) / 2 * dx;
-    
+
   }
 
   return local_int;
@@ -48,7 +48,7 @@ int main (int argc, char* argv[])
 
   // nombre de segments total
   int n = 1024;
- 
+
   // nombre de segment par tache MPI
   int nSegments;
 
@@ -95,15 +95,15 @@ int main (int argc, char* argv[])
 
   // rassemble les morceaux
   if (myRank == 0) {
-    
+
     global_integral = local_integral;
 
     for (iProc=1; iProc<nbTasks; iProc++) {
-      
+
       MPI_Recv(&local_integral, 1, MPI_DOUBLE, iProc, iProc, MPI_COMM_WORLD, &status);
-      
+
       global_integral += local_integral;
-      
+
     }
 
     printf("Resultat final : %g\n",global_integral);
@@ -121,5 +121,5 @@ int main (int argc, char* argv[])
   MPI_Finalize();
 
   return EXIT_SUCCESS;
-  
+
 }

@@ -3,17 +3,16 @@
 
 #include <mpi.h>
 
-
 int main (int argc, char *argv[])
 {
   int nbTasks, myRank, len;
   char hostname[MPI_MAX_PROCESSOR_NAME];
-  
+
   MPI_Status status;
 
   int dataRecv;
   int idSend, idRecv;
-  
+
   // init
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &nbTasks);
@@ -26,7 +25,7 @@ int main (int argc, char *argv[])
     MPI_Abort(MPI_COMM_WORLD,0);
     exit(0);
   }
-  
+
   //MPI_Barrier(MPI_COMM_WORLD);
 
   idSend = (myRank+1+nbTasks) % nbTasks;
@@ -42,9 +41,9 @@ int main (int argc, char *argv[])
 
   //MPI_Barrier(MPI_COMM_WORLD);
   printf("task %d received data %d\n", myRank, dataRecv);
-  
+
   // end
   MPI_Finalize();
 
+  return 0;
 }
-

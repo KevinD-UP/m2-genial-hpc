@@ -1,5 +1,5 @@
 /* File:     mpi_trap1.c
- * Purpose:  Use MPI to implement a parallel version of the trapezoidal 
+ * Purpose:  Use MPI to implement a parallel version of the trapezoidal
  *           rule.  In this version the endpoints of the interval and
  *           the number of trapezoids are hardwired.
  *
@@ -30,17 +30,17 @@
 #include <mpi.h>
 
 /* Calculate local integral  */
-double Trap(double left_endpt, double right_endpt, int trap_count, 
-   double base_len);    
+double Trap(double left_endpt, double right_endpt, int trap_count,
+   double base_len);
 
 /* Function we're integrating */
-double f(double x); 
+double f(double x);
 
 int main(void) {
-   int my_rank, comm_sz, n = 1024*10, local_n;   
+   int my_rank, comm_sz, n = 1024*10, local_n;
    double a = 0.0, b = 1.0, h, local_a, local_b;
    double local_int, total_int;
-   int source; 
+   int source;
 
    /* Let the system do what it needs to start up MPI */
    MPI_Init(NULL, NULL);
@@ -62,9 +62,9 @@ int main(void) {
    local_int = Trap(local_a, local_b, local_n, h);
 
    /* Add up the integrals calculated by each process */
-   if (my_rank != 0) { 
-      MPI_Send(&local_int, 1, MPI_DOUBLE, 0, 0, 
-            MPI_COMM_WORLD); 
+   if (my_rank != 0) {
+      MPI_Send(&local_int, 1, MPI_DOUBLE, 0, 0,
+            MPI_COMM_WORLD);
    } else {
       total_int = local_int;
       for (source = 1; source < comm_sz; source++) {
@@ -72,7 +72,7 @@ int main(void) {
             MPI_COMM_WORLD, MPI_STATUS_IGNORE);
          total_int += local_int;
       }
-   } 
+   }
 
    /* Print the result */
    if (my_rank == 0) {
@@ -91,22 +91,22 @@ int main(void) {
 
 /*------------------------------------------------------------------
  * Function:     Trap
- * Purpose:      Serial function for estimating a definite integral 
+ * Purpose:      Serial function for estimating a definite integral
  *               using the trapezoidal rule
  * Input args:   left_endpt
  *               right_endpt
- *               trap_count 
+ *               trap_count
  *               base_len
  * Return val:   Trapezoidal rule estimate of integral from
  *               left_endpt to right_endpt using trap_count
  *               trapezoids
  */
 double Trap(
-      double left_endpt  /* in */, 
-      double right_endpt /* in */, 
-      int    trap_count  /* in */, 
+      double left_endpt  /* in */,
+      double right_endpt /* in */,
+      int    trap_count  /* in */,
       double base_len    /* in */) {
-   double estimate, x; 
+   double estimate, x;
    int i;
 
    estimate = (f(left_endpt) + f(right_endpt))/2.0;

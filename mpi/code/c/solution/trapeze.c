@@ -20,10 +20,10 @@ double compute_integral(double start, double dx, int nSegments)
   double integral = 0.0;
 
   for (i=0; i<nSegments; i++) {
-    
+
     double x1 = start + dx*i;
     integral += ( f(x1) + f(x1 + dx) ) / 2 * dx;
-    
+
   }
 
   return integral;
@@ -38,7 +38,7 @@ int main (int argc, char* argv[])
 
   // nombre de segments total
   int n = 1024;
- 
+
   // longueur d'un segment
   double dx;
 
@@ -58,5 +58,5 @@ int main (int argc, char* argv[])
   printf("Erreur absolue : %g\n",integral-4*atan(1.0));
 
   return EXIT_SUCCESS;
-  
+
 }
