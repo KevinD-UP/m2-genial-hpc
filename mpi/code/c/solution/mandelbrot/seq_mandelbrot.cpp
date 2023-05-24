@@ -3,8 +3,6 @@
 #include <string>
 #include <stdint.h>
 
-#include <mpi.h>
-
 // ======================================================
 // ======================================================
 struct MandelbrotParams {
@@ -45,10 +43,10 @@ struct MandelbrotParams {
   //! offset to local domain - y coordinate
   int jmin;
 
-  //! number of pixels in local sub-domain along x axis
+  //! number of pixels in local sub-domain along x axis - identical to NX in sequential
   int delta_i;
 
-  //! number of pixels in local sub-domain along y axis
+  //! number of pixels in local sub-domain along y axis - identical to NY in sequential
   int delta_j;
 
   //! default constructor - local subdomain is equal to the entire domain
@@ -200,107 +198,44 @@ void write_ppm(uint8_t *data, const std::string &filename,
 
 // ======================================================
 // ======================================================
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
-  int nbTask;
-  int myRank;
-  MPI_Status status;
-
-  MPI_Init(&argc, &argv);
-
-  MPI_Comm_size(MPI_COMM_WORLD, &nbTask);
-  MPI_Comm_rank(MPI_COMM_WORLD, &myRank);
-
-  const int global_size = 512;
-
-  int local_size = global_size / nbTask;
-  // if nbTask is not a divisor of global_size, we round-up in last
-  // mpi rank
-  if (nbTask * local_size < global_size and myRank == nbTask - 1) {
-    local_size = global_size - (nbTask - 1) * local_size;
-  }
-
-  // printf("[MPI rank=%d] local_size=%d\n",myRank,local_size);
+  const int size = 512;
 
   MandelbrotParams params = MandelbrotParams(
-      global_size, 0, local_size * myRank, global_size, local_size);
+    size, 0, 0, size, size);
   MandelbrotSet mset = MandelbrotSet(params);
   mset.compute();
 
   // write_screen(mset.data, params);
 
-  // process 0 collects all pieces and write results in a ppm image
+  // write results in a ppm image
   uint8_t *image;
-  if (myRank == 0) {
 
-    auto &NX = params.NX;
-    auto &NY = params.NY;
-    auto &imin = params.imin;
-    auto &jmin = params.jmin;
-    auto &delta_i = params.delta_i;
-    auto &delta_j = params.delta_j;
+  auto &NX = params.NX;
+  auto &NY = params.NY;
+  auto &imin = params.imin;
+  auto &jmin = params.jmin;
+  auto &delta_i = params.delta_i;
+  auto &delta_j = params.delta_j;
 
-    image = new uint8_t[NX * NY];
+  image = new uint8_t[NX * NY];
 
-    // copy our own piece into image
-    for (int j = jmin; j < jmin + delta_j; ++j) {
-      for (int i = imin; i < imin + delta_i; ++i) {
-        // local coordinates
-        int il = i - imin;
-        int jl = j - jmin;
-        image[i + NX * j] = mset.data[il + NX * jl];
-      }
+  // copy our own piece into image
+  for (int j = jmin; j < jmin + delta_j; ++j) {
+    for (int i = imin; i < imin + delta_i; ++i) {
+      // local coordinates
+      int il = i - imin;
+      int jl = j - jmin;
+      image[i + NX * j] = mset.data[il + NX * jl];
     }
-
-    // assemble pieces from other MPI processes
-    // allocate buffer
-    int delta_j_max = global_size - (nbTask - 1) * local_size;
-    uint8_t *buffer = new uint8_t[delta_i * delta_j_max];
-
-    for (int iRank = 1; iRank < nbTask; ++iRank) {
-      int recv_size =
-          (iRank == nbTask - 1) ? delta_i * delta_j_max : delta_i * delta_j;
-
-      // printf("[MPI rank=%d] recv_size=%d from rank %d\n",myRank,recv_size,
-      // iRank);
-
-      MPI_Recv(buffer, recv_size, MPI_UINT8_T, iRank, iRank,
-               MPI_COMM_WORLD, &status);
-
-      auto jmin2 = local_size * iRank;
-      auto jmax2 = jmin2 + delta_j_max;
-
-      // write buffer in global image
-      for (int j = jmin2; j < jmax2; ++j) {
-        for (int i = imin; i < imin + delta_i; ++i) {
-          // local coordinates
-          int il = i - imin;
-          int jl = j - jmin2;
-          image[i + NX * j] = buffer[il + NX * jl];
-        }
-      }
-
-    } // end for iRank
-
-    // finaly write complete image
-    write_ppm(image, "mandelbrot.ppm", params);
-
-    delete[] image;
-
-  } else {
-
-    // send data to process 0
-    auto &delta_i = params.delta_i;
-    auto &delta_j = params.delta_j;
-    int send_size = delta_i * delta_j;
-
-    // printf("[MPI rank=%d] send_size=%d\n",myRank,send_size);
-
-    MPI_Send(mset.data, send_size, MPI_UINT8_T, 0, myRank,
-             MPI_COMM_WORLD);
   }
 
-  MPI_Finalize();
+  // finaly write complete image
+  write_ppm(image, "mandelbrot.ppm", params);
+
+  delete[] image;
 
   return EXIT_SUCCESS;
 }
