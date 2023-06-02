@@ -227,3 +227,21 @@ Les bonnes questions à se poser:
 - l'écriture du header doit-elle être parallèle ?
 - l'écriture des données doit-elle être parallèle ?
 - MPI-IO possède toutes les API pour faire des écritures binaires (e.g. `MPI_File_write_all`), mais il n'y a pas d'équivalent à `fprintf` (utilisée pour l'écriture ascii du header dans la version séquentielle du code). Montrer qu'on peut quand même se débrouiller pour écrire le header avec MPI-IO.
+
+
+Répartition:
+1. Ugo
+2. Lilian
+3. Julien
+4. Kevin
+5. Anes
+6. Thierry
+7. Remi
+8. Natacha
+9. Antoine
+10. Vincent Wei
+11. Majid
+12. Robin
+13. Aissat
+14. Louis
+15. Alexandre
